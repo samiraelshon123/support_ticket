@@ -25,7 +25,8 @@ class TicketController extends Controller
         $this->middleware('permission:Add_Ticket', ['only' => ['create','store']]);
         $this->middleware('permission:Show_Ticket', ['only' => ['index','show']]);
         $this->middleware('permission:Update_Ticket', ['only' => ['edit','update']]);
-        $this->middleware('permission:Delete_Ticket', ['only' => ['destroy', 'assign_agent', 'add_comment']]);
+        $this->middleware('permission:Delete_Ticket', ['only' => ['destroy']]);
+        $this->middleware('permission:Assign_Agent', ['only' => ['assign_agent']]);
     }
     /**
      * Display a listing of the resource.
