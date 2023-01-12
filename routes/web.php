@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Contracts\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware(['auth:web'])->group(function() {
 
@@ -30,6 +32,7 @@ Route::middleware(['auth:web'])->group(function() {
     Route::post('add_comment/{id}', [TicketController::class, 'add_comment'])->name('add_comment');
     Route::resource('category', CategoryController::class);
     Route::resource('label', LabelController::class);
+    Route::get('activities', ActivityController::class)->name('activities');
 });
 
 Auth::routes();

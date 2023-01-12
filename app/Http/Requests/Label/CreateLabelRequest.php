@@ -10,7 +10,7 @@ class CreateLabelRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
+            'title' => 'required|string|unique:labels',
             'image' => 'mimes:jpg,jpeg,png,webp',
         ];
     }

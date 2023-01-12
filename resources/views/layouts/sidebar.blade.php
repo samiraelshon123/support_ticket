@@ -34,7 +34,7 @@
       @endcan
       @can("Show_Ticket_Logs")
       <li>
-        <a href="#" class="nav-link text-black {{ (request()->is('ticket_logs')) ? 'active' : '' }}">
+        <a href="{{ route('activities') }}" class="nav-link text-black {{ (request()->is('activities')) ? 'active' : '' }}">
             <i class="fa-solid fa-clipboard-list"></i>
           Ticket Logs
         </a>

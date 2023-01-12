@@ -12,7 +12,7 @@ class UpdateTicketRequest extends FormRequest
         return [
             'title' => 'string',
             'description' => 'string',
-            'priority' => 'array'
+            'priority' => 'string'
         ];
     }
 }

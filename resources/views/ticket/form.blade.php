@@ -41,8 +41,8 @@
 
                 <div class="col-6">
                 <label for="address" class="form-label">Labels</label><br>
-                @foreach ($labels as $label)
-                    <input type="checkbox" name="label[]" value="{{$label->id}}">
+                @foreach ($labels as $key => $label)
+                    <input type="checkbox" name="label[]" value="{{$label->id}}" {{($ticket->id != null  && $label->id == $ticket->label[$key]["id"]) ? "checked" : "" }}>
                     <label for="">{{$label->title}}</label>
                 @endforeach
                 </div>
@@ -51,16 +51,21 @@
 
                     <label for="address" class="form-label">Categories</label><br>
                     @foreach ($categories as $category)
-                        <input type="checkbox" name="category[]" value="{{$category->id}}">
+                        <input type="checkbox" name="category[]" value="{{$category->id}}" {{($ticket->id != null  && $category->id == $ticket->category[$key]["id"]) ? "checked" : "" }}>
                         <label for="">{{$category->title}}</label>
                     @endforeach
 
                 </div>
 
-
+{{--
                 <div class="col-6">
                     <label for="">Priority</label>
                     <input type="text" value=""  name="priority[]" data-role="tagsinput" width="100%" >
+                </div> --}}
+
+                <div class="col-6">
+                    <label for="">Priority</label>
+                    <input type="text" name="priority" value="{{$ticket->priority}}" width="100%" >
                 </div>
                 @if($ticket->id != null)
                 @can("Assign_Agent")
@@ -70,7 +75,7 @@
                     <select class="form-control" name="agent" id="">
                         <option value="" >Select Agent</option>
                         @foreach ($users as $user)
-                            <option value="{{$user->id}}" >{{$user->name}}</option>
+                            <option value="{{$user->id}}" {{($ticket->agent_id == $user->id) ? "selected" : "" }}>{{$user->name}}</option>
                         @endforeach
 
                     </select>

@@ -9,9 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasPermissions, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +60,11 @@ class User extends Authenticatable
                 return  '<span class="alert-warning">Error </span>';
                 break;
         }
+    }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['name', 'text']);
+        // Chain fluent methods for configuration options
     }
 }

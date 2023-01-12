@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Ticket extends Model
 {
-    use HasFactory;
+    use LogsActivity;
     protected $fillable = ['title', 'description','priority', 'status', 'user_id', 'agent_id', 'comment_id'];
 
 
@@ -25,6 +27,15 @@ class Ticket extends Model
     {
         return $this->belongsToMany(Comment::class, 'ticket_comments', 'ticket_id', 'comment_id');
     }
-   protected $casts = ['priority' => 'object'];
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['name', 'text']);
+        // Chain fluent methods for configuration options
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+//    protected $casts = ['priority' => 'object'];
 
 }

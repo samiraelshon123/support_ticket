@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->json('priority');
+            // $table->json('priority');
+            $table->string('priority');
             $table->boolean('status')->default(1)->comment('0 => closed 1 => open');
             $table->integer('agent_id')->nullable();
             $table->integer('user_id');

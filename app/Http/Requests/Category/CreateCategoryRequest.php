@@ -10,9 +10,9 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
+            'title' => 'required|string|unique:categories',
             'image' => 'mimes:jpg,jpeg,png,webp',
-           
+
         ];
     }
 }

@@ -18,6 +18,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Contracts\View\View;
+
+use function PHPSTORM_META\type;
+
 class TicketController extends Controller
 {
     public function __construct()
@@ -33,17 +37,30 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request): View
     {
+
         $user = Auth::user();
+        $categories = Category::get();
+        $tickets = Ticket::
+        when($user->type == 2, fn($query)=> $query)->
+        when($user->type == 0, fn($query)=> $query->where('user_id', auth()->user()->id))->
+        when($user->type == 1, fn($query)=> $query->where('agent_id', auth()->user()->id))->
+        when($request->has('status'), function ($query) use ($request) {
+                 return $query->where('status', $request->input('status'));
+        })->
+        when($request->has('priority'), function ($query) use ($request) {
+            return $query->where('priority', $request->input('priority'));
+   })->
+        when($request->has('category'), function ($query) use ($request) {
+                return $query->whereRelation('category', 'title', $request->input('category'));
+        })->
 
-            $tickets = Ticket::
-            when($user->type == 2, fn($query)=> $query)->
-            when($user->type == 0, fn($query)=> $query->where('user_id', auth()->user()->id))->
-            when($user->type == 1, fn($query)=> $query->where('agent_id', auth()->user()->id))->
-            get();
+        get();
 
-        return view('ticket.index', compact('tickets'));
+
+
+    return view('ticket.index', compact('tickets', 'categories'));
     }
 
     /**
@@ -69,6 +86,7 @@ class TicketController extends Controller
      */
     public function store(CreateTicketRequest $request)
     {
+
         $data = $request->Validated();
         $data['user_id'] = auth()->user()->id;
         $ticket1 = Ticket::create($data);
@@ -124,6 +142,7 @@ class TicketController extends Controller
 
         $categories = Category::get();
         $labels = Label::get();
+      
         return view('ticket.form', compact('ticket', 'categories', 'labels', 'action', 'users'));
     }
 

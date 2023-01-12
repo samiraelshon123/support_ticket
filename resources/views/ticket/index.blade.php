@@ -11,6 +11,38 @@
         <div class="table-responsive col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <br>
             <h2>Ticket Table</h2><br>
+            <form action="{{ route('ticket.index') }}" method="get">
+                @csrf
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-4">
+                            <label for="">Category</label>
+                            <select name="category" class="form-control" id="">
+                                <option value="">Select Category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{$category->title}}">{{$category->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label for="">Status</label>
+                            <select name="status" class="form-control" id="">
+                                    <option value="">Select Status</option>
+                                    <option value="0">Close</option>
+                                    <option value="1">Open</option>
+
+                            </select>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label for="">Priority</label>
+                           <input type="text" class="form-control" name="priority">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                </div>
+
+            </form>
             @can("Add_Ticket")
             <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
                 <div class="ms-auto">

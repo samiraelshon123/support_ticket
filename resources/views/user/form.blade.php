@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 @section('content')
-  
+
     <main class="d-flex flex-nowrap">
 
         @include('layouts/sidebar')
@@ -54,9 +54,9 @@
                 <div class="col-12">
                     <label for="name" class="form-label">Type</label>
                 <select class="form-control" name="type" id="">
-                    <option value="0" {{($user->name == 0) ? "selected" : "" }} >Regular User</option>
-                    <option value="1" {{($user->name == 1) ? "selected" : "" }}>Agent</option>
-                    <option value="2" {{($user->name == 2) ? "selected" : "" }}>Adminstrator</option>
+                    <option value="0" {{($user->type == 0) ? "selected" : "" }} >Regular User</option>
+                    <option value="1" {{($user->type == 1) ? "selected" : "" }}>Agent</option>
+                    <option value="2" {{($user->type == 2) ? "selected" : "" }}>Adminstrator</option>
                 </select>
                 </div>
             <button class="btn btn-success w-25" type="submit">Submit</button>

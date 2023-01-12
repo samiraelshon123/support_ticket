@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 class Category extends Model
 {
-    use HasFactory;
+    use LogsActivity;
     protected $fillable = ['title', 'image'];
     public function ticket()
     {
@@ -20,5 +21,11 @@ class Category extends Model
         else
             return asset('assets/upload/default.png');
 
+    }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['name', 'text']);
+        // Chain fluent methods for configuration options
     }
 }
