@@ -43,7 +43,6 @@ class TicketController extends Controller
         $user = Auth::user();
         $categories = Category::get();
         $tickets = Ticket::
-        when($user->type == 2, fn($query)=> $query)->
         when($user->type == 0, fn($query)=> $query->where('user_id', auth()->user()->id))->
         when($user->type == 1, fn($query)=> $query->where('agent_id', auth()->user()->id))->
         when($request->has('status'), function ($query) use ($request) {
@@ -142,7 +141,7 @@ class TicketController extends Controller
 
         $categories = Category::get();
         $labels = Label::get();
-      
+
         return view('ticket.form', compact('ticket', 'categories', 'labels', 'action', 'users'));
     }
 
