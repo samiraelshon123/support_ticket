@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+
 
 use function PHPSTORM_META\type;
 
@@ -40,26 +42,25 @@ class TicketController extends Controller
     public function index(Request $request): View
     {
 
+
         $user = Auth::user();
         $categories = Category::get();
-        $tickets = Ticket::
+
+        $tickets = Ticket::with('category', 'label')->
         when($user->type == 0, fn($query)=> $query->where('user_id', auth()->user()->id))->
         when($user->type == 1, fn($query)=> $query->where('agent_id', auth()->user()->id))->
-        when($request->has('status'), function ($query) use ($request) {
+        when($request->status != null, function (Builder $query) use ($request) {
                  return $query->where('status', $request->input('status'));
         })->
-        when($request->has('priority'), function ($query) use ($request) {
+        when($request->priority != null, function (Builder $query) use ($request) {
             return $query->where('priority', $request->input('priority'));
-   })->
-        when($request->has('category'), function ($query) use ($request) {
+        })->
+        when($request->category != null, function (Builder $query) use ($request) {
                 return $query->whereRelation('category', 'title', $request->input('category'));
         })->
-
         get();
 
-
-
-    return view('ticket.index', compact('tickets', 'categories'));
+        return view('ticket.index', compact('tickets', 'categories'));
     }
 
     /**

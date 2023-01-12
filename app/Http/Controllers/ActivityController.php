@@ -9,7 +9,7 @@ class ActivityController extends Controller
     public function __invoke()
     {
         $activities = Activity::with('causer')->latest()->paginate();
-
+        // dd($activities);
         return view('activities.index', compact('activities'));
     }
 }

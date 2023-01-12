@@ -31,7 +31,7 @@
                                     {{ $activity->subject_type }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $activity?->causer()->first()->name }}
+                                    {{ $activity?->causer?->name }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ $activity->created_at }}

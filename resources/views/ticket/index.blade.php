@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-4 mb-3">
                             <label for="">Priority</label>
-                           <input type="text" class="form-control" name="priority">
+                           <input type="text" class="form-control" name="priority" value="">
                         </div>
                     </div>
 
@@ -55,7 +55,9 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
-
+                <th scope="col">Categories</th>
+                <th scope="col">Labels</th>
+                <th scope="col">User</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -65,7 +67,18 @@
             <tr>
                 <td>{{$ticket->id}}</td>
                 <td><a href="{{route("ticket.show",$ticket->id)}}">{{$ticket->title}}</a></td>
+                <td class="px-4 py-3 text-sm">
+                    @foreach($ticket->category as $category)
+                        <span class="rounded-full bg-gray-50 px-2 py-2">{{ $category->title }}</span>
+                    @endforeach
+                </td>
+                <td class="px-4 py-3 text-sm">
 
+                    @foreach($ticket->label as $label)
+                        <span class="rounded-full bg-gray-50 px-2 py-2">{{ $label->title }} </span>
+                    @endforeach
+                </td>
+                <td>{{$ticket->user->name}}</td>
                 <td>
                     <div class="d-flex order-actions">
                         @can("Update_Ticket")
