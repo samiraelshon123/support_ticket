@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Category;
+use App\Models\Label;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -28,6 +30,15 @@ class DatabaseSeeder extends Seeder
 
         ]);
         $user->assignRole("admin");
+
+        Label::create([
+            'title' => 'first label',
+            'image' => 'default.png'
+        ]);
+        Category::create([
+            'title' => 'first category',
+            'image' => 'default.png'
+        ]);
 
     }
 }

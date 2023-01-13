@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-  
+
     <main class="d-flex flex-nowrap">
 
 
@@ -29,9 +29,12 @@
                 <label for="username" class="form-label">Title</label>
                 <div class="input-group has-validation">
 
-                    <input type="text" name="title" class="form-control" id="title" placeholder="Enter Title" value="{{$label->title}}" required>
+                    <input type="text" name="title" class="form-control" id="title" placeholder="Enter Title" value="{{old('title', $label->title)}}" >
 
                 </div>
+                @if($errors->has('title'))
+                    <div class="text-danger">{{ $errors->first('title') }}</div>
+                @endif
                 </div>
 
 

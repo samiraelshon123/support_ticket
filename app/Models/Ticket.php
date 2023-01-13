@@ -10,7 +10,7 @@ use Spatie\Activitylog\LogOptions;
 class Ticket extends Model
 {
     use LogsActivity;
-    protected $fillable = ['title', 'description','priority', 'status', 'user_id', 'agent_id', 'comment_id'];
+    protected $fillable = ['title', 'description','priority', 'status', 'user_id', 'agent_id', 'comment_id', 'is_resolved'];
 
 
     public function category()

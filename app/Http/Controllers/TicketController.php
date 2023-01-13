@@ -159,6 +159,9 @@ class TicketController extends Controller
         if($request->agent != null){
             $data['agent_id'] = $request->agent;
         }
+        if($request->is_resolved != null){
+            $data['is_resolved'] = $request->is_resolved;
+        }
         $ticket = Ticket::with('label', 'file', 'category')->find($id);
         $ticket->update($data);
 

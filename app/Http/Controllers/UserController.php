@@ -38,6 +38,7 @@ class UserController extends Controller
     public function create()
     {
         $user = new User();
+        
         $action = route('user.store');
         return view('user.form', compact('user', 'action'));
     }

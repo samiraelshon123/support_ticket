@@ -12,7 +12,10 @@ class CreateTicketRequest extends FormRequest
         return [
             'title' => 'required|string',
             'description' => 'required|string',
-            'priority' => 'required|string'
+            'priority' => 'required|string',
+            'category' =>'required',
+            'label' => 'required',
+            'file' => 'nullable'
         ];
     }
 }
